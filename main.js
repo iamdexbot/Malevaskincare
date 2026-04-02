@@ -538,6 +538,12 @@ function closeDetailModal() {
   document.body.style.overflow = "";
 }
 
+/* ══════════════════════════════════════════════════════════
+   WELCOME MODAL
+   ══════════════════════════════════════════════════════════ */
+function bookNow() {
+  window.open("https://www.vagaro.com/malevaskincareandspa/services", "_blank");
+}
 
 /* ══════════════════════════════════════════════════════════
    WELCOME MODAL

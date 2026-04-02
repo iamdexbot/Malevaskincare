@@ -26,7 +26,7 @@
         <p class="text-gray-600 mb-8 text-lg leading-relaxed">
           Begin your journey to radiant, healthy skin with our expert treatments and personalized care.
         </p>
-        <button onclick="closeModal(); scrollToSection('contact')" class="btn-primary">
+        <button onclick="bookNow()" class="btn-primary">
           Book an Appointment
         </button>
       </div>
@@ -71,7 +71,9 @@
   </nav>
 
   <!-- Floating Book Now -->
-  <div class="floating-btn" onclick="scrollToSection('contact')">Book Now</div>
+  <div class="floating-btn" onclick="bookNow()">
+    Book Now
+  </div>
 
   <!-- ═══════════════════════════════════════
        HERO
@@ -90,7 +92,7 @@
           Advanced skincare treatments designed to rejuvenate, restore, and transform your skin.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-up delay-3">
-          <button onclick="scrollToSection('contact')" class="btn-primary">Book Appointment</button>
+          <button onclick="bookNow()" class="btn-primary">Book Appointment</button>
           <button onclick="scrollToSection('contact')" class="btn-secondary">Contact Us</button>
         </div>
       </div>
