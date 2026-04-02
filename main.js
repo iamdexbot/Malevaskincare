@@ -145,7 +145,7 @@ const SERVICES = [
     emoji: "💫",
     accent: "gold",
     description: "Juvelook is a hybrid skin booster that delivers both instant hydration and long-term collagen stimulation. Combining hyaluronic acid and PDLLA, it improves skin elasticity, smooths fine lines, and enhances overall firmness. The result is a natural, long-lasting glow with visibly rejuvenated skin.",
-    imageSrc: "images/juvelook.png",
+    imageSrc: "images/Juvelook.png",
     imageAlt: "Juvelook Treatment",
     carouselInclude: true,
     carouselCaption: "Juvelook – Youthful Glow",
