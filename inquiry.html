@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inquiries – Maleva Skin Care</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Variables ── */
+    :root {
+      --primary-blue:  #1E6FA8;
+      --light-blue:    #4A9CD6;
+      --primary-green: #2D7A5C;
+      --light-green:   #48A784;
+      --primary-gold:  #D4A553;
+      --light-gold:    #E8C484;
+      --cream:         #F5F1E8;
+      --cream-light:   #FDFBF7;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--cream-light);
+      color: #3a3a3a;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(30, 111, 168, 0.25);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .page-header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .header-logo {
+      height: 44px;
+      width: auto;
+    }
+    .header-title {
+      color: white;
+      font-size: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .header-subtitle {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif;
+      margin-top: 0.15rem;
+    }
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,255,255,0.85);
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .back-link:hover { color: white; }
+
+    /* ── Main layout ── */
+    .main-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      display: flex;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.1rem 1.6rem;
+      box-shadow: 0 4px 16px rgba(30,111,168,0.08);
+      border: 2px solid transparent;
+      flex: 1;
+      min-width: 160px;
+    }
+    .stat-card.blue  { border-color: rgba(30,111,168,0.15); }
+    .stat-card.green { border-color: rgba(45,122,92,0.15);  }
+    .stat-card.gold  { border-color: rgba(212,165,83,0.2);  }
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .stat-number.blue  { color: var(--primary-blue);  }
+    .stat-number.green { color: var(--primary-green); }
+    .stat-number.gold  { color: var(--primary-gold);  }
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+    }
+
+    /* ── Branch tabs ── */
+    .branch-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      background: white;
+      padding: 0.4rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 12px rgba(30,111,168,0.07);
+      width: fit-content;
+    }
+    .tab-btn {
+      padding: 0.6rem 1.6rem;
+      border-radius: 0.7rem;
+      border: none;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      background: transparent;
+      color: #888;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+      color: white;
+      box-shadow: 0 4px 12px rgba(30,111,168,0.3);
+    }
+    .tab-btn:not(.active):hover {
+      background: rgba(30,111,168,0.06);
+      color: var(--primary-blue);
+    }
+
+    /* ── Table section ── */
+    .table-section {
+      display: none;
+    }
+    .table-section.active { display: block; }
+
+    .table-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .table-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .table-title span {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.8rem;
+      border-radius: 50px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+    .badge-artesia {
+      background: rgba(30,111,168,0.12);
+      color: var(--primary-blue);
+    }
+    .badge-stockton {
+      background: rgba(45,122,92,0.12);
+      color: var(--primary-green);
+    }
+
+    .clear-btn {
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      border: 1.5px solid #e5e7eb;
+      background: white;
+      color: #999;
+      font-size: 0.75rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .clear-btn:hover {
+      border-color: #ef4444;
+      color: #ef4444;
+      background: rgba(239,68,68,0.04);
+    }
+
+    .csv-btn {
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      border: 1.5px solid rgba(45,122,92,0.3);
+      background: white;
+      color: var(--primary-green);
+      font-size: 0.75rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .csv-btn:hover {
+      background: var(--primary-green);
+      color: white;
+      border-color: var(--primary-green);
+      box-shadow: 0 4px 14px rgba(45,122,92,0.25);
+    }
+    .csv-btn:active {
+      transform: scale(0.97);
+    }
+
+    .table-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── Table wrapper ── */
+    .table-wrap {
+      background: white;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 24px rgba(30,111,168,0.08);
+      overflow: hidden;
+      border: 2px solid rgba(30,111,168,0.06);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    thead {
+      background: linear-gradient(135deg, rgba(30,111,168,0.06), rgba(45,122,92,0.04));
+      border-bottom: 2px solid rgba(30,111,168,0.1);
+    }
+    th {
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(30,111,168,0.06);
+      transition: background 0.2s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(30,111,168,0.025); }
+
+    td {
+      padding: 1rem 1.25rem;
+      color: #444;
+      vertical-align: middle;
+    }
+
+    .td-name {
+      font-weight: 600;
+      color: #2a2a2a;
+      font-size: 0.88rem;
+    }
+    .td-email a {
+      color: var(--primary-blue);
+      text-decoration: none;
+    }
+    .td-email a:hover { text-decoration: underline; }
+    .td-phone a {
+      color: var(--primary-green);
+      text-decoration: none;
+    }
+    .td-phone a:hover { text-decoration: underline; }
+
+    .inquiry-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-appointment {
+      background: rgba(30,111,168,0.1);
+      color: var(--primary-blue);
+    }
+    .badge-product {
+      background: rgba(45,122,92,0.1);
+      color: var(--primary-green);
+    }
+
+    .td-date {
+      color: #aaa;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    /* ── Row number ── */
+    .td-num {
+      color: #ccc;
+      font-size: 0.75rem;
+      font-weight: 600;
+      width: 40px;
+      text-align: center;
+    }
+
+    /* ── Empty state ── */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #bbb;
+    }
+    .empty-state svg {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 1rem;
+      opacity: 0.35;
+    }
+    .empty-state p {
+      font-size: 0.9rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .empty-state strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #ccc;
+      margin-bottom: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="page-header">
+    <div class="page-header-left">
+      <img src="images/logo.jpg" alt="Maleva Skin Care" class="header-logo">
+      <div>
+        <div class="header-title">Maleva Skin Care</div>
+        <div class="header-subtitle">Customer Inquiries Dashboard</div>
+      </div>
+    </div>
+    <a href="index.html" class="back-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      Back to Website
+    </a>
+  </header>
+
+  <!-- ── Main ── -->
+  <main class="main-content">
+
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat-card blue">
+        <div class="stat-number blue" id="stat-total">0</div>
+        <div class="stat-label">Total Inquiries</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-number blue" id="stat-artesia">0</div>
+        <div class="stat-label">Artesia Branch</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-number green" id="stat-stockton">0</div>
+        <div class="stat-label">Stockton Branch</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-number gold" id="stat-appointments">0</div>
+        <div class="stat-label">Appointments</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-number green" id="stat-product-inquiries">0</div>
+        <div class="stat-label">Product Inquiries</div>
+      </div>
+    </div>
+
+    <!-- Branch Tabs -->
+    <div class="branch-tabs">
+      <button class="tab-btn active" onclick="switchTab('all')">All Branches</button>
+      <button class="tab-btn" onclick="switchTab('artesia')">Artesia, Los Angeles</button>
+      <button class="tab-btn" onclick="switchTab('stockton')">Stockton, California</button>
+    </div>
+
+    <!-- All Branches Table -->
+    <div id="section-all" class="table-section active">
+      <div class="table-header-row">
+        <h2 class="table-title">All Inquiries</h2>
+        <div class="table-actions">
+          <button class="csv-btn" onclick="exportCSV('all')">
+            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            Export CSV
+          </button>
+          <button class="clear-btn" onclick="clearAll()">
+            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+            Clear All
+          </button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Contact Number</th>
+              <th>Inquiry Type</th>
+              <th>Branch</th>
+              <th>Date & Time</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-all"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Artesia Table -->
+    <div id="section-artesia" class="table-section">
+      <div class="table-header-row">
+        <h2 class="table-title">
+          Artesia, Los Angeles
+          <span class="badge-artesia">Branch 1</span>
+        </h2>
+        <div class="table-actions">
+          <button class="csv-btn" onclick="exportCSV('artesia')">
+            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            Export CSV
+          </button>
+          <button class="clear-btn" onclick="clearBranch('artesia')">
+            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+            Clear Artesia
+          </button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Contact Number</th>
+              <th>Inquiry Type</th>
+              <th>Date & Time</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-artesia"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Stockton Table -->
+    <div id="section-stockton" class="table-section">
+      <div class="table-header-row">
+        <h2 class="table-title">
+          Stockton, California
+          <span class="badge-stockton">Branch 2</span>
+        </h2>
+        <div class="table-actions">
+          <button class="csv-btn" onclick="exportCSV('stockton')">
+            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            Export CSV
+          </button>
+          <button class="clear-btn" onclick="clearBranch('stockton')">
+            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+            Clear Stockton
+          </button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Contact Number</th>
+              <th>Inquiry Type</th>
+              <th>Date & Time</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-stockton"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    /* ══════════════════════════════════════════
+       STORAGE KEY
+    ══════════════════════════════════════════ */
+    const STORAGE_KEY = "maleva_inquiries";
+
+    /* ══════════════════════════════════════════
+       LOAD DATA
+    ══════════════════════════════════════════ */
+    function loadInquiries() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       FORMAT DATE
+    ══════════════════════════════════════════ */
+    function formatDate(iso) {
+      if (!iso) return "—";
+      const d = new Date(iso);
+      return d.toLocaleString("en-US", {
+        month: "short", day: "numeric", year: "numeric",
+        hour: "numeric", minute: "2-digit", hour12: true,
+      });
+    }
+
+    /* ══════════════════════════════════════════
+       INQUIRY TYPE LABEL + BADGE
+    ══════════════════════════════════════════ */
+    function typeBadge(type) {
+      if (type === "appointment") {
+        return `<span class="inquiry-badge badge-appointment">Book Appointment</span>`;
+      }
+      return `<span class="inquiry-badge badge-product">Product / Service</span>`;
+    }
+
+    /* ══════════════════════════════════════════
+       BRANCH LABEL
+    ══════════════════════════════════════════ */
+    function branchLabel(branch) {
+      if (branch === "artesia")  return `<span class="inquiry-badge badge-appointment">Artesia, LA</span>`;
+      if (branch === "stockton") return `<span class="inquiry-badge badge-product">Stockton, CA</span>`;
+      return branch || "—";
+    }
+
+    /* ══════════════════════════════════════════
+       EMPTY STATE ROW
+    ══════════════════════════════════════════ */
+    function emptyRow(colspan) {
+      return `
+        <tr>
+          <td colspan="${colspan}">
+            <div class="empty-state">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              <strong>No inquiries yet</strong>
+              <p>Submissions from the contact form will appear here.</p>
+            </div>
+          </td>
+        </tr>`;
+    }
+
+    /* ══════════════════════════════════════════
+       RENDER ALL TABLE
+    ══════════════════════════════════════════ */
+    function renderAll(data) {
+      const tbody = document.getElementById("tbody-all");
+      if (!data.length) { tbody.innerHTML = emptyRow(7); return; }
+      tbody.innerHTML = [...data].reverse().map((r, i) => `
+        <tr>
+          <td class="td-num">${data.length - i}</td>
+          <td class="td-name">${esc(r.name)}</td>
+          <td class="td-email"><a href="mailto:${esc(r.email)}">${esc(r.email)}</a></td>
+          <td class="td-phone"><a href="tel:${esc(r.phone)}">${esc(r.phone)}</a></td>
+          <td>${typeBadge(r.type)}</td>
+          <td>${branchLabel(r.branch)}</td>
+          <td class="td-date">${formatDate(r.date)}</td>
+        </tr>`).join("");
+    }
+
+    /* ══════════════════════════════════════════
+       RENDER BRANCH TABLE
+    ══════════════════════════════════════════ */
+    function renderBranch(branchId, data) {
+      const filtered = data.filter(r => r.branch === branchId);
+      const tbody = document.getElementById(`tbody-${branchId}`);
+      if (!filtered.length) { tbody.innerHTML = emptyRow(6); return; }
+      tbody.innerHTML = [...filtered].reverse().map((r, i) => `
+        <tr>
+          <td class="td-num">${filtered.length - i}</td>
+          <td class="td-name">${esc(r.name)}</td>
+          <td class="td-email"><a href="mailto:${esc(r.email)}">${esc(r.email)}</a></td>
+          <td class="td-phone"><a href="tel:${esc(r.phone)}">${esc(r.phone)}</a></td>
+          <td>${typeBadge(r.type)}</td>
+          <td class="td-date">${formatDate(r.date)}</td>
+        </tr>`).join("");
+    }
+
+    /* ══════════════════════════════════════════
+       UPDATE STATS
+    ══════════════════════════════════════════ */
+    function updateStats(data) {
+      document.getElementById("stat-total").textContent        = data.length;
+      document.getElementById("stat-artesia").textContent      = data.filter(r => r.branch === "artesia").length;
+      document.getElementById("stat-stockton").textContent     = data.filter(r => r.branch === "stockton").length;
+      document.getElementById("stat-appointments").textContent = data.filter(r => r.type === "appointment").length;
+      document.getElementById("stat-product-inquiries").textContent = data.filter(r => r.type === "inquiry").length;
+    }
+
+    /* ══════════════════════════════════════════
+       RENDER EVERYTHING
+    ══════════════════════════════════════════ */
+    function renderAll_wrapper() {
+      const data = loadInquiries();
+      updateStats(data);
+      renderAll(data);
+      renderBranch("artesia",  data);
+      renderBranch("stockton", data);
+    }
+
+    /* ══════════════════════════════════════════
+       TAB SWITCHING
+    ══════════════════════════════════════════ */
+    function switchTab(tab) {
+      document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+      document.querySelectorAll(".table-section").forEach(s => s.classList.remove("active"));
+      event.currentTarget.classList.add("active");
+      document.getElementById(`section-${tab}`).classList.add("active");
+    }
+
+    /* ══════════════════════════════════════════
+       CLEAR ACTIONS
+    ══════════════════════════════════════════ */
+    function clearAll() {
+      if (!confirm("Clear ALL inquiries from both branches? This cannot be undone.")) return;
+      localStorage.removeItem(STORAGE_KEY);
+      renderAll_wrapper();
+    }
+
+    function clearBranch(branchId) {
+      const label = branchId === "artesia" ? "Artesia" : "Stockton";
+      if (!confirm(`Clear all ${label} inquiries? This cannot be undone.`)) return;
+      const data = loadInquiries().filter(r => r.branch !== branchId);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      renderAll_wrapper();
+    }
+
+    /* ══════════════════════════════════════════
+       EXPORT CSV
+       scope: 'all' | 'artesia' | 'stockton'
+    ══════════════════════════════════════════ */
+    function exportCSV(scope) {
+      const all = loadInquiries();
+
+      const filtered = scope === 'all'
+        ? all
+        : all.filter(r => r.branch === scope);
+
+      if (!filtered.length) {
+        alert("No data to export for this selection.");
+        return;
+      }
+
+      // Build CSV rows
+      const headers = ["#", "Full Name", "Email", "Contact Number", "Inquiry Type", "Branch", "Date & Time"];
+
+      const typeLabel   = t => t === "appointment" ? "Book Appointment" : "Product / Service Inquiry";
+      const branchLabel = b => b === "artesia" ? "Artesia, Los Angeles" : b === "stockton" ? "Stockton, California" : b;
+
+      const rows = filtered.map((r, i) => [
+        i + 1,
+        r.name  || "",
+        r.email || "",
+        r.phone || "",
+        typeLabel(r.type),
+        branchLabel(r.branch),
+        formatDate(r.date),
+      ]);
+
+      // Escape a single CSV cell value
+      const cell = v => `"${String(v).replace(/"/g, '""')}"`;
+
+      const csv = [
+        headers.map(cell).join(","),
+        ...rows.map(row => row.map(cell).join(",")),
+      ].join("\r\n");
+
+      // Trigger download
+      const now    = new Date();
+      const stamp  = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
+      const label  = scope === "all" ? "all-branches" : scope;
+      const filename = `maleva-inquiries-${label}-${stamp}.csv`;
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement("a");
+      a.href     = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    /* ══════════════════════════════════════════
+       XSS HELPER
+    ══════════════════════════════════════════ */
+    function esc(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    /* ══════════════════════════════════════════
+       LIVE REFRESH  (picks up new submissions
+       from the contact form in same browser)
+    ══════════════════════════════════════════ */
+    window.addEventListener("storage", (e) => {
+      if (e.key === STORAGE_KEY) renderAll_wrapper();
+    });
+
+    /* ══════════════════════════════════════════
+       INIT
+    ══════════════════════════════════════════ */
+    renderAll_wrapper();
+  </script>
+
+</body>
+</html>
