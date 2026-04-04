@@ -300,12 +300,13 @@ function renderTeam() {
       : `<div class="team-photo-placeholder"><span>${member.name.charAt(0)}</span></div>`;
 
     return `
-      <div class="team-card">
+      <div class="team-card" onclick="openDetailModal('team', '${member.id}')">
         <div class="team-photo-wrap">${photoHTML}</div>
         <div class="team-info">
           <p class="team-role">${member.role}</p>
           <h3 class="team-name gradient-text">${member.name}</h3>
           <p class="team-bio">${member.description}</p>
+          <p class="text-xs mt-3 font-medium" style="color:var(--primary-gold);">Tap to learn more →</p>
         </div>
       </div>`;
   }).join("");
@@ -505,9 +506,10 @@ function resetCarouselTimer() {
    DETAIL MODAL  (Services & Products)
    ══════════════════════════════════════════════════════════ */
 function openDetailModal(type, id) {
-  const item = type === "service"
-    ? SERVICES.find(s => s.id === id)
-    : PRODUCTS.find(p => p.id === id);
+  let item;
+  if (type === "service")      item = SERVICES.find(s => s.id === id);
+  else if (type === "product") item = PRODUCTS.find(p => p.id === id);
+  else if (type === "team")    item = TEAM.find(t => t.id === id);
   if (!item) return;
 
   const modal     = document.getElementById("detailModal");
@@ -517,17 +519,29 @@ function openDetailModal(type, id) {
 
   imageWrap.innerHTML = item.imageSrc
     ? `<img src="${item.imageSrc}" alt="${item.imageAlt}" class="detail-modal-image">`
-    : `<div class="detail-modal-image-placeholder"><span>${item.emoji}</span></div>`;
+    : `<div class="detail-modal-image-placeholder"><span>${item.emoji ?? item.name.charAt(0)}</span></div>`;
 
-  if (item.accent === "gold") {
-    title.className = "";
+  if (type === "team") {
+    title.className   = "gradient-text";
+    title.style.color = "";
+  } else if (item.accent === "gold") {
+    title.className   = "";
     title.style.color = "var(--primary-gold)";
   } else {
-    title.className = item.accent;
+    title.className   = item.accent;
     title.style.color = "";
   }
+
   title.textContent = item.name;
-  body.textContent  = item.description;
+
+  if (type === "team") {
+    body.innerHTML = `
+      <p style="font-size:0.75rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+                 color:var(--primary-gold); margin-bottom:0.75rem;">${item.role}</p>
+      <p>${item.description}</p>`;
+  } else {
+    body.textContent = item.description;
+  }
 
   modal.classList.add("open");
   document.body.style.overflow = "hidden";
@@ -537,6 +551,11 @@ function closeDetailModal() {
   document.getElementById("detailModal").classList.remove("open");
   document.body.style.overflow = "";
 }
+
+/* ══════════════════════════════════════════════════════════
+Modal Team Member
+ ══════════════════════════════════════════════════════════ */
+
 
 /* ══════════════════════════════════════════════════════════
    WELCOME MODAL
